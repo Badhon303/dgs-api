@@ -73,17 +73,11 @@ export interface Config {
     projects: Project;
     canvas: Canva;
     windows: Window;
-    'window-properties': WindowProperty;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {
-    'window-properties': {
-      newSubParts: 'window-properties';
-      newProperties: 'window-properties';
-    };
-  };
+  collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -91,7 +85,6 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     canvas: CanvasSelect<false> | CanvasSelect<true>;
     windows: WindowsSelect<false> | WindowsSelect<true>;
-    'window-properties': WindowPropertiesSelect<false> | WindowPropertiesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -238,41 +231,15 @@ export interface Canva {
 export interface Window {
   id: string;
   canvas: string | Canva;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "window-properties".
- */
-export interface WindowProperty {
-  id: string;
-  window: string | Window;
-  type?: ('fixed' | 'sliding' | 'casement') | null;
-  shape?: ('rectangle' | 'arch' | 'circular') | null;
-  width?: number | null;
-  height?: number | null;
-  'x-axis'?: number | null;
-  'y-axis'?: number | null;
-  rotation?: number | null;
-  frameWidth?: number | null;
-  frameColor?: string | null;
-  glassColor?: string | null;
-  horizontalDividers?: number | null;
-  verticalDividers?: number | null;
-  angularDividers?: number | null;
-  subParts?: (string | null) | WindowProperty;
-  newSubParts?: {
-    docs?: (string | WindowProperty)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  properties?: (string | null) | WindowProperty;
-  newProperties?: {
-    docs?: (string | WindowProperty)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
+  properties:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -306,10 +273,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'windows';
         value: string | Window;
-      } | null)
-    | ({
-        relationTo: 'window-properties';
-        value: string | WindowProperty;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -456,32 +419,7 @@ export interface CanvasSelect<T extends boolean = true> {
  */
 export interface WindowsSelect<T extends boolean = true> {
   canvas?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "window-properties_select".
- */
-export interface WindowPropertiesSelect<T extends boolean = true> {
-  window?: T;
-  type?: T;
-  shape?: T;
-  width?: T;
-  height?: T;
-  'x-axis'?: T;
-  'y-axis'?: T;
-  rotation?: T;
-  frameWidth?: T;
-  frameColor?: T;
-  glassColor?: T;
-  horizontalDividers?: T;
-  verticalDividers?: T;
-  angularDividers?: T;
-  subParts?: T;
-  newSubParts?: T;
   properties?: T;
-  newProperties?: T;
   updatedAt?: T;
   createdAt?: T;
 }

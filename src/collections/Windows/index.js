@@ -20,5 +20,10 @@ export const Windows = {
       required: true,
       hasMany: false,
     },
+    {
+      name: 'properties', // required
+      type: 'json', // required
+      required: true,
+    },
   ],
 }

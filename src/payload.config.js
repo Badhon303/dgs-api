@@ -13,7 +13,6 @@ import { UserProfiles } from './collections/UserProfiles'
 import { Projects } from './collections/Projects'
 import { Canvas } from './collections/Canvas'
 import { Windows } from './collections/Windows'
-import { WindowProperties } from './collections/WindowProperties'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -44,7 +43,7 @@ export default buildConfig({
       titleSuffix: '- DGS',
     },
   },
-  collections: [Users, Media, UserProfiles, Projects, Canvas, Windows, WindowProperties],
+  collections: [Users, Media, UserProfiles, Projects, Canvas, Windows],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   // typescript: {
