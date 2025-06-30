@@ -11,8 +11,6 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { UserProfiles } from './collections/UserProfiles'
 import { Projects } from './collections/Projects'
-import { Canvas } from './collections/Canvas'
-import { Windows } from './collections/Windows'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -43,7 +41,7 @@ export default buildConfig({
       titleSuffix: '- DGS',
     },
   },
-  collections: [Users, Media, UserProfiles, Projects, Canvas, Windows],
+  collections: [Users, Media, UserProfiles, Projects],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   // typescript: {

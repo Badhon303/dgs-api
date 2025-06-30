@@ -1,5 +1,6 @@
 import { admins } from '@/utils/access/admin'
 import { profileUser } from './access'
+import { isValidUrl } from '@/utils/isValidUrl'
 
 export const UserProfiles = {
   slug: 'user-profiles',

@@ -71,8 +71,6 @@ export interface Config {
     media: Media;
     'user-profiles': UserProfile;
     projects: Project;
-    canvas: Canva;
-    windows: Window;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,8 +81,6 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     'user-profiles': UserProfilesSelect<false> | UserProfilesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
-    canvas: CanvasSelect<false> | CanvasSelect<true>;
-    windows: WindowsSelect<false> | WindowsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -152,7 +148,8 @@ export interface User {
  */
 export interface Media {
   id: string;
-  alt: string;
+  profile: string | User;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -210,35 +207,25 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "canvas".
- */
-export interface Canva {
-  id: string;
-  project: string | Project;
-  image?: (string | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "windows".
- */
-export interface Window {
-  id: string;
-  canvas: string | Canva;
-  properties:
+  canvas?:
     | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
+        image?: (string | null) | Media;
+        windows?:
+          | {
+              properties:
+                | {
+                    [k: string]: unknown;
+                  }
+                | unknown[]
+                | string
+                | number
+                | boolean
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
     | null;
   updatedAt: string;
   createdAt: string;
@@ -265,14 +252,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: string | Project;
-      } | null)
-    | ({
-        relationTo: 'canvas';
-        value: string | Canva;
-      } | null)
-    | ({
-        relationTo: 'windows';
-        value: string | Window;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -344,6 +323,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  profile?: T;
   alt?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -400,26 +380,18 @@ export interface ProjectsSelect<T extends boolean = true> {
         numberOfDoorsOrWindows?: T;
         id?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "canvas_select".
- */
-export interface CanvasSelect<T extends boolean = true> {
-  project?: T;
-  image?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "windows_select".
- */
-export interface WindowsSelect<T extends boolean = true> {
-  canvas?: T;
-  properties?: T;
+  canvas?:
+    | T
+    | {
+        image?: T;
+        windows?:
+          | T
+          | {
+              properties?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

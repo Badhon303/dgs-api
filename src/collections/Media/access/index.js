@@ -1,11 +1,11 @@
-export const canvasUser = ({ req: { user } }) => {
+export const mediaUser = ({ req: { user } }) => {
   if (user) {
     if (user?.role === 'admin') {
       return true
     }
 
     return {
-      'project.profile.id': {
+      'profile.id': {
         equals: user.id,
       },
     }

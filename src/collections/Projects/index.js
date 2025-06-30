@@ -19,12 +19,11 @@ export const Projects = {
       access: { update: () => false },
       required: true,
       hasMany: false,
-      //   hidden: true, // Hide this field in the admin UI
+      hidden: true, // Hide this field in the admin UI
     },
     {
       name: 'projectName',
       type: 'text',
-      unique: true,
       required: true,
       maxLength: 100,
     },
@@ -129,6 +128,30 @@ export const Projects = {
           name: 'numberOfDoorsOrWindows',
           type: 'text',
           maxLength: 100,
+        },
+      ],
+    },
+    {
+      name: 'canvas',
+      type: 'array',
+      maxRows: 999,
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        {
+          name: 'windows',
+          type: 'array',
+          maxRows: 999,
+          fields: [
+            {
+              name: 'properties', // required
+              type: 'json', // required
+              required: true,
+            },
+          ],
         },
       ],
     },
