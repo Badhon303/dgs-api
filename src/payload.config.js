@@ -61,10 +61,10 @@ export default buildConfig({
   graphQL: {
     disable: true, // Disable GraphQL API
   },
-  cors: ['http://localhost:3000'],
+  cors: ['http://localhost:3000', 'https://dgs.codemonks.xyz'],
   // If you are protecting resources behind user authentication,
   // This will allow cookies to be sent between the two domains
-  csrf: ['http://localhost:3000'],
+  csrf: ['http://localhost:3000', 'https://dgs.codemonks.xyz'],
   // cookiePrefix: 'rf',
   upload: {
     limits: {
