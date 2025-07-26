@@ -1,4 +1,5 @@
 import { projectUser } from './access'
+import { APIError } from 'payload'
 
 export const Projects = {
   slug: 'projects',
@@ -140,6 +141,32 @@ export const Projects = {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
+          // ADD THIS CUSTOM VALIDATION
+          validate: async (value, { req }) => {
+            // if (!value) {
+            //   return 'An image is required for this canvas entry.'
+            // }
+
+            try {
+              // Attempt to find the media document by its ID
+              const mediaDoc = await req.payload.findByID({
+                collection: 'media',
+                id: value,
+              })
+
+              if (!mediaDoc) {
+                throw new APIError(
+                  `Image with ID '${value}' does not exist in the media collection.`,
+                  500,
+                )
+              }
+            } catch (error) {
+              // Handle cases where the ID format might be invalid or other database errors
+              throw new APIError(`Error validating image ID '${value}': ${error.message}`, 500)
+            }
+
+            return true // Validation passed
+          },
         },
         {
           name: 'windows',
