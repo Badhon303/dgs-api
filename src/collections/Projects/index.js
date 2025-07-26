@@ -153,11 +153,11 @@ export const Projects = {
             },
           ],
         },
+        {
+          name: 'canvasStatus', // required
+          type: 'json', // required
+        },
       ],
-    },
-    {
-      name: 'canvasStatus', // required
-      type: 'json', // required
     },
   ],
   hooks: {

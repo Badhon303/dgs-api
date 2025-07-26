@@ -224,17 +224,17 @@ export interface Project {
               id?: string | null;
             }[]
           | null;
+        canvasStatus?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
         id?: string | null;
       }[]
-    | null;
-  canvasStatus?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
     | null;
   updatedAt: string;
   createdAt: string;
@@ -399,9 +399,9 @@ export interface ProjectsSelect<T extends boolean = true> {
               properties?: T;
               id?: T;
             };
+        canvasStatus?: T;
         id?: T;
       };
-  canvasStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }
