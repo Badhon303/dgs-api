@@ -155,6 +155,10 @@ export const Projects = {
         },
       ],
     },
+    {
+      name: 'canvasStatus', // required
+      type: 'json', // required
+    },
   ],
   hooks: {
     beforeChange: [
