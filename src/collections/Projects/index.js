@@ -143,10 +143,9 @@ export const Projects = {
           relationTo: 'media',
           // ADD THIS CUSTOM VALIDATION
           validate: async (value, { req }) => {
-            // if (!value) {
-            //   return 'An image is required for this canvas entry.'
-            // }
-
+            if (!value) {
+              return true
+            }
             try {
               // Attempt to find the media document by its ID
               const mediaDoc = await req.payload.findByID({
