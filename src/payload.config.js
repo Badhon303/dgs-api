@@ -61,10 +61,18 @@ export default buildConfig({
   graphQL: {
     disable: true, // Disable GraphQL API
   },
-  cors: ['http://localhost:3000', 'https://dgsapi.codemonks.xyz'],
+  cors: [
+    'http://localhost:3000',
+    'https://dgsapi.codemonks.xyz',
+    'https://window-studio-f96j.vercel.app',
+  ],
   // If you are protecting resources behind user authentication,
   // This will allow cookies to be sent between the two domains
-  csrf: ['http://localhost:3000', 'https://dgsapi.codemonks.xyz'],
+  csrf: [
+    'http://localhost:3000',
+    'https://dgsapi.codemonks.xyz',
+    'https://window-studio-f96j.vercel.app',
+  ],
   // cookiePrefix: 'rf',
   upload: {
     limits: {
